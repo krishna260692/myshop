@@ -1,0 +1,178 @@
+{% load static %}
+
+<html>
+ <head>
+      <title>{% block title %}flowerlovers{% endblock %}</title>
+ <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="hamburger-menu">
+    <div id="header"> <a href="/" class="logo">flowerlovers</a></div>
+
+
+
+    <input id="menu__toggle" type="checkbox" />
+    <label class="menu__btn" for="menu__toggle">
+      <span></span>
+    </label>
+
+    <ul class="menu__box">
+
+        <li><div class="menu__item" >{% if user.is_authenticated %}
+    Hi {{ user.email }}!
+
+    {% else %}
+    <p>You are not logged in</p>
+    <a class="menu__item" href="{% url 'login' %}">Log In</a>
+    {% endif %}
+</div></li>
+
+<!--      <li><a class="menu__item" href="{% url 'login' %}">Log In</a></li>-->
+      <li><a class="menu__item" href="#">About</a></li>
+      <li><a class="menu__item" href="#">Team</a></li>
+        <li><a class="menu__item" href="{% url 'signup' %}">Sign Up</a></li>
+        <li><a class="menu__item" href="{% url 'logout' %}">Log Out</a></li>
+
+
+
+        <li><div class="cart">
+{% with total_items=cart|length %}
+ {% if total_items > 0 %}
+ Your cart:
+ <a href="{% url "cart:cart_detail" %}">
+ {{ total_items }} item{{ total_items|pluralize }},
+ ₹ {{ cart.get_total_price }}
+ </a>
+{% elif not order %}
+
+ Your cart is empty.
+ {% endif %}
+ {% endwith %}
+ </div></li>
+
+
+    </ul>
+  </div>
+
+
+
+
+ </head>
+ <body>
+<!-- <div id="header">-->
+<!-- <a href="/" class="logo">flowerlovers</a>-->
+<!-- </div>-->
+
+
+<!--<style>-->
+
+
+<!--table {-->
+<!--  width: 100%;-->
+<!--  border-collapse: collapse;-->
+<!--  text-align: center;-->
+<!--}-->
+<!--</style>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<table>-->
+
+<!--  <tr>-->
+<!--    <td>  <div id="userone" >{% if user.is_authenticated %}-->
+<!--    Hi {{ user.email }}!-->
+<!--      <p></p>-->
+<!--    {% else %}-->
+<!--    <p>You are not logged in</p>-->
+<!--    <a href="{% url 'login' %}">Log In</a>-->
+<!--    {% endif %}-->
+<!--    </td>-->
+
+
+<!--  </tr>-->
+<!--  <tr>-->
+<!--    <td><div id="subheader">-->
+<!-- <div class="cart">-->
+<!--{% with total_items=cart|length %}-->
+<!-- {% if total_items > 0 %}-->
+<!-- Your cart:-->
+<!-- <a href="{% url "cart:cart_detail" %}">-->
+<!-- {{ total_items }} item{{ total_items|pluralize }},-->
+<!-- ${{ cart.get_total_price }}-->
+<!-- </a>-->
+<!--{% elif not order %}-->
+
+<!-- Your cart is empty.-->
+<!-- {% endif %}-->
+<!-- {% endwith %}-->
+<!-- </div>-->
+<!-- </div></td>-->
+
+<!--  </tr>-->
+<!--</table>-->
+
+
+
+
+
+
+
+
+
+<!--  <div id="userone" >{% if user.is_authenticated %}-->
+<!--    Hi {{ user.email }}!-->
+
+<!--    {% else %}-->
+<!--    <p>You are not logged in</p>-->
+<!--    <a href="{% url 'login' %}">Log In</a>-->
+<!--    {% endif %}-->
+<!--</div>-->
+
+ <div id="subheader">
+ <div class="cart">
+{% with total_items=cart|length %}
+ {% if total_items > 0 %}
+ Your cart:
+ <a href="{% url "cart:cart_detail" %}">
+ {{ total_items }} item{{ total_items|pluralize }},
+ ₹ {{ cart.get_total_price }}
+ </a>
+{% elif not order %}
+
+ Your cart is empty.
+ {% endif %}
+ {% endwith %}
+ </div>
+ </div>
+
+ <div id="content">
+ {% block content %}
+
+
+
+ {% endblock %}
+ </div>
+ </body>
+</html>
